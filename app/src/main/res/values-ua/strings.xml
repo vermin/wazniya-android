@@ -324,7 +324,7 @@
     <string name="nfc_tag_read_undef">Я не розумію цю мітку!</string>
     <string name="nfc_tag_read_what">Я не знаю, що ти хочеш!</string>
     <string name="nfc_tag_read_success">Читання мітки завершено успішно</string>
-    <string name="nfc_tag_tap">NFC via Sticker Tag доступний!</string>
+    <string name="nfc_tag_tap">NFC доступний!</string>
 
     <string name="receive_desc_hint">Опис (необовязково)</string>
 
@@ -366,8 +366,18 @@
     <string name="label_test">Test</string><!--note: as in "Test a network connection"-->
 
     <string name="backup_success">Backup successful</string>
+
+    <string name="send_address_resolve_bip70">Resolving Payment URI&#8230;</string>
+    <string name="send_address_not_bip70">Could not resolve Payment URI</string>
+    <string name="send_address_bip70">Resolved Payment URI &#x2714;</string>
     <!-- please verify this means "Receiver" or "Recipient" as in "Receiver in the transaction" -->
     <string name="send_address_hint">Receiver</string>
+
+    <string name="xmrto_error_001">XMR.TO offline - try again later</string>
+    <string name="xmrto_error_004">BTC amount out of bounds</string>
+    <string name="xmrto_error_010">Invalid or outdated Payment URL</string>
+    <string name="xmrto_error_012">Too many requests</string>
+
     <string name="street_sweep_amount">EVERYTHING!</string> <!-- as in: "everything in the account" = "all the money" -->
 
     <string name="menu_ledger_seed">Convert Ledger Seed</string>

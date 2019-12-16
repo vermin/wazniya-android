@@ -57,7 +57,6 @@ import android.widget.TextView;
 
 import com.m2049r.xmrwallet.BuildConfig;
 import com.m2049r.xmrwallet.R;
-import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.model.NetworkType;
 import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeApi;
@@ -67,7 +66,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -76,6 +74,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import okhttp3.HttpUrl;
 import timber.log.Timber;
 
 public class Helper {
@@ -83,11 +82,12 @@ public class Helper {
             (BuildConfig.FLAVOR.startsWith("prod") ? "" : "." + BuildConfig.FLAVOR)
                     + (BuildConfig.DEBUG ? "-debug" : "");
 
-    static public final String BASE_CRYPTO = Wallet.LOKI_SYMBOL;
     static public final String NOCRAZYPASS_FLAGFILE = ".nocrazypass";
 
-    static private final String WALLET_DIR = "loki-wallet" + FLAVOR_SUFFIX;
-    static private final String HOME_DIR = "loki" + FLAVOR_SUFFIX;
+    static public final String BASE_CRYPTO = "XMR";
+
+    static private final String WALLET_DIR = "monerujo" + FLAVOR_SUFFIX;
+    static private final String HOME_DIR = "monero" + FLAVOR_SUFFIX;
 
     static public int DISPLAY_DIGITS_INFO = 5;
 
@@ -188,8 +188,7 @@ public class Helper {
     }
 
     static public BigDecimal getDecimalAmount(long amount) {
-        // Loki - All amounts need to be divided by 10e8
-        return new BigDecimal(amount).scaleByPowerOfTen(-9);
+        return new BigDecimal(amount).scaleByPowerOfTen(-12);
     }
 
     static public String getDisplayAmount(long amount) {
@@ -264,7 +263,7 @@ public class Helper {
             urlConnection.setConnectTimeout(HTTP_TIMEOUT);
             urlConnection.setReadTimeout(HTTP_TIMEOUT);
             InputStreamReader in = new InputStreamReader(urlConnection.getInputStream());
-            StringBuilder sb = new StringBuilder();
+            StringBuffer sb = new StringBuffer();
             final int BUFFER_SIZE = 512;
             char[] buffer = new char[BUFFER_SIZE];
             int length = in.read(buffer, 0, BUFFER_SIZE);
@@ -321,6 +320,15 @@ public class Helper {
         return ShakeAnimation;
     }
 
+    static public HttpUrl getXmrToBaseUrl() {
+        if ((WalletManager.getInstance() == null)
+                || (WalletManager.getInstance().getNetworkType() != NetworkType.NetworkType_Mainnet)) {
+            return HttpUrl.parse("https://test.xmr.to/api/v2/xmr2btc/");
+        } else {
+            return HttpUrl.parse("https://xmr.to/api/v2/xmr2btc/");
+        }
+    }
+
     private final static char[] HexArray = "0123456789ABCDEF".toCharArray();
 
     public static String bytesToHex(byte[] data) {
@@ -358,7 +366,7 @@ public class Helper {
     // TODO make the log levels refer to the  WalletManagerFactory::LogLevel enum ?
     static public void initLogger(Context context, int level) {
         String home = getStorage(context, HOME_DIR).getAbsolutePath();
-        WalletManager.initLogger(home + "/loki-wallet", "loki-wallet.log");
+        WalletManager.initLogger(home + "/monerujo", "monerujo.log");
         if (level >= WalletManager.LOGLEVEL_SILENT)
             WalletManager.setLogLevel(level);
     }
@@ -494,11 +502,13 @@ public class Helper {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
             }
         });
 
@@ -507,15 +517,17 @@ public class Helper {
                 .setCancelable(false)
                 .setPositiveButton(context.getString(R.string.label_ok), null)
                 .setNegativeButton(context.getString(R.string.label_cancel),
-                        (dialog, id) -> {
-                            Helper.hideKeyboardAlways((Activity) context);
-                            cancelSignal.cancel();
-                            if (loginTask != null) {
-                                loginTask.cancel(true);
-                                loginTask = null;
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Helper.hideKeyboardAlways((Activity) context);
+                                cancelSignal.cancel();
+                                if (loginTask != null) {
+                                    loginTask.cancel(true);
+                                    loginTask = null;
+                                }
+                                dialog.cancel();
+                                openDialog = null;
                             }
-                            dialog.cancel();
-                            openDialog = null;
                         });
         openDialog = alertDialogBuilder.create();
 
@@ -622,7 +634,7 @@ public class Helper {
     }
 
     static public ExchangeApi getExchangeApi() {
-        return new com.m2049r.xmrwallet.service.exchange.coingecko.ExchangeApiImpl(OkHttpHelper.getOkHttpClient());
+        return new com.m2049r.xmrwallet.service.exchange.krakenEcb.ExchangeApiImpl(OkHttpHelper.getOkHttpClient());
     }
 
     public interface Action {

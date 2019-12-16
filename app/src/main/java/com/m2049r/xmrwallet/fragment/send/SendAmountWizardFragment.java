@@ -140,7 +140,7 @@ public class SendAmountWizardFragment extends SendWizardFragment {
         Timber.d("onResumeFragment()");
         Helper.showKeyboard(getActivity());
         final long funds = getTotalFunds();
-        maxFunds = 1.0 * funds / Wallet.SMALLEST_UNITS_IN_LOK;
+        maxFunds = 1.0 * funds / 1000000000000L;
         if (!sendListener.getActivityCallback().isStreetMode()) {
             tvFunds.setText(getString(R.string.send_available,
                     Wallet.getDisplayAmount(funds)));

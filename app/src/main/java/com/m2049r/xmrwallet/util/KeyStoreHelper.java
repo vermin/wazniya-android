@@ -19,6 +19,7 @@ package com.m2049r.xmrwallet.util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.security.KeyPairGeneratorSpec;
 import android.security.keystore.KeyGenParameterSpec;
@@ -51,7 +52,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.security.auth.x500.X500Principal;
-import javax.security.cert.Certificate;
 
 import timber.log.Timber;
 
@@ -116,11 +116,12 @@ public class KeyStoreHelper {
         try {
             KeyStoreHelper.createKeys(context, walletKeyAlias);
             byte[] encrypted = KeyStoreHelper.encrypt(walletKeyAlias, data);
+            SharedPreferences.Editor e = context.getSharedPreferences(SecurityConstants.WALLET_PASS_PREFS_NAME, Context.MODE_PRIVATE).edit();
             if (encrypted == null) {
-                AppPreferences.removeWalletUserPass(context, wallet);
+                e.remove(wallet).apply();
                 return false;
             }
-            AppPreferences.setWalletUserPass(context, wallet, Base64.encodeToString(encrypted, Base64.DEFAULT));
+            e.putString(wallet, Base64.encodeToString(encrypted, Base64.DEFAULT)).apply();
             return true;
         } catch (NoSuchProviderException | NoSuchAlgorithmException |
                 InvalidAlgorithmParameterException | KeyStoreException ex) {
@@ -141,7 +142,8 @@ public class KeyStoreHelper {
 
     public static String loadWalletUserPass(@NonNull Context context, String wallet) throws BrokenPasswordStoreException {
         String walletKeyAlias = SecurityConstants.WALLET_PASS_KEY_PREFIX + wallet;
-        String encoded = AppPreferences.getWalletUserPass(context, wallet);
+        String encoded = context.getSharedPreferences(SecurityConstants.WALLET_PASS_PREFS_NAME, Context.MODE_PRIVATE)
+                .getString(wallet, "");
         if (encoded.isEmpty()) throw new BrokenPasswordStoreException();
         byte[] data = Base64.decode(encoded, Base64.DEFAULT);
         byte[] decrypted = KeyStoreHelper.decrypt(walletKeyAlias, data);
@@ -156,7 +158,8 @@ public class KeyStoreHelper {
         } catch (KeyStoreException ex) {
             Timber.w(ex);
         }
-        AppPreferences.removeWalletUserPass(context, wallet);
+        context.getSharedPreferences(SecurityConstants.WALLET_PASS_PREFS_NAME, Context.MODE_PRIVATE).edit()
+                .remove(wallet).apply();
     }
 
     /**
@@ -243,7 +246,8 @@ public class KeyStoreHelper {
 
     private static PrivateKey getPrivateKey(String alias) {
         try {
-            KeyStore ks = KeyStore .getInstance(SecurityConstants.KEYSTORE_PROVIDER_ANDROID_KEYSTORE);
+            KeyStore ks = KeyStore
+                    .getInstance(SecurityConstants.KEYSTORE_PROVIDER_ANDROID_KEYSTORE);
             ks.load(null);
             //KeyStore.Entry entry = ks.getEntry(alias, null);
             PrivateKey privateKey = (PrivateKey) ks.getKey(alias, null);
@@ -330,6 +334,7 @@ public class KeyStoreHelper {
         String TYPE_RSA = "RSA";
         String SIGNATURE_SHA256withRSA = "SHA256withRSA";
         String CIPHER_RSA_ECB_PKCS1 = "RSA/ECB/PKCS1Padding";
+        String WALLET_PASS_PREFS_NAME = "wallet";
         String WALLET_PASS_KEY_PREFIX = "walletKey-";
     }
 }

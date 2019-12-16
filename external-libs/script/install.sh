@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+#  -D BOOST_ROOT=/opt/android/boost_1_58_0
 
 set -e
 
@@ -38,10 +40,5 @@ for arch in ${archs[@]}; do
 
 	done
 done
-
-if [[ ! -z $1 ]] ; then
-    rm -rf $build_dir
-fi
-
 exit 0
 

@@ -28,13 +28,7 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-import timber.log.Timber;
-
 public class Wallet {
-
-    public static final long SMALLEST_UNITS_IN_LOK = 1000000000L;
-    public static final String LOKI_SYMBOL = "LOKI";
-
     final static public long SWEEP_ALL = Long.MAX_VALUE;
 
     static {
@@ -304,22 +298,21 @@ public class Wallet {
     public PendingTransaction createTransaction(TxData txData) {
         return createTransaction(
                 txData.getDestinationAddress(),
-                txData.getPaymentId(),
                 txData.getAmount(),
                 txData.getMixin(),
                 txData.getPriority());
     }
 
-    public PendingTransaction createTransaction(String dst_addr, String payment_id,
+    public PendingTransaction createTransaction(String dst_addr,
                                                 long amount, int mixin_count,
                                                 PendingTransaction.Priority priority) {
         disposePendingTransaction();
         int _priority = priority.getValue();
         long txHandle =
                 (amount == SWEEP_ALL ?
-                        createSweepTransaction(dst_addr, payment_id, mixin_count, _priority,
+                        createSweepTransaction(dst_addr, "", mixin_count, _priority,
                                 accountIndex) :
-                        createTransactionJ(dst_addr, payment_id, amount, mixin_count, _priority,
+                        createTransactionJ(dst_addr, "", amount, mixin_count, _priority,
                                 accountIndex));
         pendingTransaction = new PendingTransaction(txHandle);
         return pendingTransaction;

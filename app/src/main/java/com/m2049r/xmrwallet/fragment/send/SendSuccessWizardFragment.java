@@ -54,6 +54,8 @@ public class SendSuccessWizardFragment extends SendWizardFragment {
 
         void enableDone();
 
+        SendFragment.Mode getMode();
+
         SendFragment.Listener getActivityCallback();
     }
 
@@ -109,12 +111,6 @@ public class SendSuccessWizardFragment extends SendWizardFragment {
 
         final TxData txData = sendListener.getTxData();
         tvTxAddress.setText(txData.getDestinationAddress());
-        String paymentId = txData.getPaymentId();
-        if ((paymentId != null) && (!paymentId.isEmpty())) {
-            tvTxPaymentId.setText(txData.getPaymentId());
-        } else {
-            tvTxPaymentId.setText("-");
-        }
 
         final PendingTx committedTx = sendListener.getCommittedTx();
         if (committedTx != null) {

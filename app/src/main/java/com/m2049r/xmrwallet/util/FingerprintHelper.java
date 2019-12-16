@@ -39,11 +39,7 @@ public class FingerprintHelper {
 
         FingerprintManager manager = context.getSystemService(FingerprintManager.class);
         if (manager != null) {
-            try {
-                manager.authenticate(null, cancelSignal, 0, callback, null);
-            } catch (Exception e) {
-                callback.onAuthenticationError(-1, "Failed to authenticate using fingerprint.");
-            }
+            manager.authenticate(null, cancelSignal, 0, callback, null);
         }
     }
 }

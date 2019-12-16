@@ -56,9 +56,9 @@ public class WalletManager {
     static public String addressPrefix(NetworkType networkType) {
         switch (networkType) {
             case NetworkType_Testnet:
-                return "T6-";
+                return "9A-";
             case NetworkType_Mainnet:
-                return "L-";
+                return "4-";
             case NetworkType_Stagenet:
                 return "5-";
             default:
@@ -355,5 +355,5 @@ public class WalletManager {
 
     static public native void logError(String category, String message);
 
-//    static public native String moneroVersion();
+    static public native String moneroVersion();
 }

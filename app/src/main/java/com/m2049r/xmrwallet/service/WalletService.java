@@ -297,16 +297,11 @@ public class WalletService extends Service {
                         }
                     } else if (cmd.equals(REQUEST_CMD_STORE)) {
                         Wallet myWallet = getWallet();
-                        boolean rc = false;
-                        if (myWallet != null) {
-                            Timber.d("STORE wallet: %s", myWallet.getName());
-                            rc = myWallet.store();
-                            Timber.d("wallet stored: %s with rc=%b", myWallet.getName(), rc);
-                            if (!rc) {
-                                Timber.w("Wallet store failed: %s", myWallet.getStatus().getErrorString());
-                            }
-                        } else {
-                            Timber.w("Wallet store failed: getWallet() returned null");
+                        Timber.d("STORE wallet: %s", myWallet.getName());
+                        boolean rc = myWallet.store();
+                        Timber.d("wallet stored: %s with rc=%b", myWallet.getName(), rc);
+                        if (!rc) {
+                            Timber.w("Wallet store failed: %s", myWallet.getStatus().getErrorString());
                         }
                         if (observer != null) observer.onWalletStored(rc);
                     } else if (cmd.equals(REQUEST_CMD_TX)) {
@@ -473,7 +468,7 @@ public class WalletService extends Service {
     @Nullable
     private Wallet.Status start(String walletName, String walletPassword) {
         Timber.d("start()");
-        startNotification();
+        startNotfication();
         showProgress(getString(R.string.status_wallet_loading));
         showProgress(10);
         if (listener == null) {
@@ -552,7 +547,7 @@ public class WalletService extends Service {
         return wallet;
     }
 
-    private void startNotification() {
+    private void startNotfication() {
         Intent notificationIntent = new Intent(this, WalletActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
@@ -560,7 +555,7 @@ public class WalletService extends Service {
         Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setContentTitle(getString(R.string.service_description))
                 .setOngoing(true)
-                .setSmallIcon(R.drawable.ic_loki_logo_b)
+                .setSmallIcon(R.drawable.ic_monerujo)
                 .setPriority(NotificationCompat.PRIORITY_MIN)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
                 .setContentIntent(pendingIntent)

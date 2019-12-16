@@ -47,6 +47,7 @@ import android.widget.Toast;
 
 import com.m2049r.xmrwallet.data.BarcodeData;
 import com.m2049r.xmrwallet.data.TxData;
+import com.m2049r.xmrwallet.data.UserNotes;
 import com.m2049r.xmrwallet.dialog.CreditsFragment;
 import com.m2049r.xmrwallet.dialog.HelpFragment;
 import com.m2049r.xmrwallet.fragment.send.SendAddressWizardFragment;
@@ -59,7 +60,6 @@ import com.m2049r.xmrwallet.model.WalletManager;
 import com.m2049r.xmrwallet.service.WalletService;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.MoneroThreadPoolExecutor;
-import com.m2049r.xmrwallet.util.UserNotes;
 import com.m2049r.xmrwallet.widget.Toolbar;
 
 import java.util.ArrayList;
@@ -249,7 +249,7 @@ public class WalletActivity extends BaseActivity implements WalletFragment.Liste
             if (isStreetMode()) {
                 streetmodeItem.setIcon(R.drawable.gunther_csi_24dp);
             } else {
-                streetmodeItem.setIcon(R.drawable.gunther_lunther);
+                streetmodeItem.setIcon(R.drawable.gunther_24dp);
             }
         return super.onPrepareOptionsMenu(menu);
     }

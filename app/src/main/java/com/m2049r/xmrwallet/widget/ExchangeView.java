@@ -185,7 +185,7 @@ public class ExchangeView extends LinearLayout {
         sCurrencyA.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position != 0) { // if not LOKI, select LOKI on other
+                if (position != 0) { // if not XMR, select XMR on other
                     sCurrencyB.setSelection(0, true);
                 }
                 doExchange();
@@ -200,11 +200,15 @@ public class ExchangeView extends LinearLayout {
         sCurrencyB.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position != 0) { // if not LOKI, select LOKI on other
+                if (position != 0) { // if not XMR, select XMR on other
                     sCurrencyA.setSelection(0, true);
                 }
-                parentView.post(() -> ((TextView) parentView.getChildAt(0))
-                        .setTextColor(getResources().getColor(R.color.moneroGray)));
+                parentView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((TextView) parentView.getChildAt(0)).setTextColor(getResources().getColor(R.color.moneroGray));
+                    }
+                });
                 doExchange();
             }
 
@@ -214,9 +218,12 @@ public class ExchangeView extends LinearLayout {
             }
         });
 
-        etAmount.getEditText().setOnFocusChangeListener((v, hasFocus) -> {
-            if (!hasFocus) {
-                doExchange();
+        etAmount.getEditText().setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    doExchange();
+                }
             }
         });
 
@@ -322,13 +329,23 @@ public class ExchangeView extends LinearLayout {
                     @Override
                     public void onSuccess(final ExchangeRate exchangeRate) {
                         if (isAttachedToWindow())
-                            new Handler(Looper.getMainLooper()).post(() -> exchange(exchangeRate));
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    exchange(exchangeRate);
+                                }
+                            });
                     }
 
                     @Override
                     public void onError(final Exception e) {
                         Timber.e(e.getLocalizedMessage());
-                        new Handler(Looper.getMainLooper()).post(() -> exchangeFailed());
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                exchangeFailed();
+                            }
+                        });
                     }
                 });
     }
@@ -352,8 +369,8 @@ public class ExchangeView extends LinearLayout {
                 setXmr("");
             }
             tvAmountB.setText(xmrAmount);
-        } else { // no LOKI currency - cannot happen!
-            Timber.e("No LOKI currency!");
+        } else { // no XMR currency - cannot happen!
+            Timber.e("No XMR currency!");
             setXmr(null);
             notXmrAmount = null;
             return;
@@ -378,8 +395,8 @@ public class ExchangeView extends LinearLayout {
                     cleanAmount = String.format(Locale.US, "%.2f", amountA);
                     setXmr(null);
                     notXmrAmount = cleanAmount;
-                } else { // no LOKI currency - cannot happen!
-                    Timber.e("No LOKI currency!");
+                } else { // no XMR currency - cannot happen!
+                    Timber.e("No XMR currency!");
                     setXmr(null);
                     notXmrAmount = null;
                     return false;

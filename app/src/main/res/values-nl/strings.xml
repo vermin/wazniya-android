@@ -30,13 +30,58 @@
 
     <string name="label_receive_info_gen_qr_code">Tik voor QR-code</string>
 
+    <string name="info_xmrto_enabled">BTC-betaling ingeschakeld. Tik voor meer info.</string>
     <string name="info_ledger_enabled">Ledger ingeschakeld. Tik voor meer info.</string>
 
-    <string name="info_paymentid_intergrated">Betalings-ID geïntegreerd</string>
+    <string name="info_xmrto"><![CDATA[
+        <b>Je hebt een Bitcoin-adres ingevoerd.</b><br/>
+        <i>Je verzendt XMR en de ontvanger krijgt BTC via <b>XMR.TO</b>.</i>
+    ]]></string>
+
+    <string name="info_send_xmrto_success_order_label">XMR.TO-opdracht</string>
+
+    <string name="info_send_xmrto_success_btc">%1$s BTC</string>
+
+    <string name="info_send_xmrto_paid">Wacht op bevestiging</string>
+    <string name="info_send_xmrto_unpaid">Wacht op betaling</string>
+    <string name="info_send_xmrto_error">Fout bij XMR.TO (%1$s)</string>
+    <string name="info_send_xmrto_sent">BTC verzonden!</string>
+    <string name="info_send_xmrto_query">Aanvragen…</string>
+
+    <string name="info_send_xmrto_parms"><![CDATA[
+        <b>Je kunt  %1$s &#8212; %2$s BTC verzenden</b>.<br/>
+        <i><b>XMR.TO</b> biedt <u>nu</u> een wisselkoers van <b>%3$s BTC</b> aan</i>.
+    ]]></string>
+    <string name="info_send_xmrto_zeroconf"><![CDATA[
+        <i>Bedragen tot <b>%1$s BTC</b> worden <u>meteen</u> verzonden!</i>
+    ]]></string>
+
+    <string name="send_available_btc">Saldo: %2$s BTC (%1$s XMR)</string>
+
+    <string name="info_paymentid_integrated">&#x2714; Betalings-ID geïntegreerd</string>
     <string name="info_prepare_tx">Transactie wordt voorbereid</string>
+
+    <string name="label_send_progress_xmrto_create">XMR.TO-opdracht maken</string>
+    <string name="label_send_progress_xmrto_query">XMR.TO-opdracht aanvragen</string>
+    <string name="label_send_progress_create_tx">Monero-transactie voorbereiden</string>
+
+    <string name="label_send_progress_queryparms">XMR.TO-parameters aanvragen</string>
+
+    <string name="label_generic_xmrto_error">FOUT BIJ XMR.TO</string>
+    <string name="text_generic_xmrto_error">Code: %1$d</string>
 
     <string name="text_retry">Opnieuw proberen</string>
     <string name="text_noretry_monero">Nu zitten we vast…</string>
+    <string name="text_noretry">Oeps, XMR.TO is op dit moment niet beschikbaar.</string>
+
+    <string name="text_send_btc_amount">%1$s BTC = %2$s XMR</string>
+    <string name="text_send_btc_rate">(Koers: %1$s BTC/XMR)</string>
+
+    <string name="label_send_btc_xmrto_info">Ga naar xmr.to voor hulp en traceren</string>
+    <string name="label_send_btc_xmrto_key_lb">Geheime sleutel\nXMR.TO</string>
+    <string name="label_send_btc_xmrto_key">Geheime sleutel XMR.TO</string>
+    <string name="label_send_btc_address">BTC-doeladres</string>
+    <string name="label_send_btc_amount">Bedrag</string>
 
     <string name="label_send_txid">Transactie-ID</string>
     <string name="label_send_address">Doeladres</string>
@@ -69,6 +114,8 @@
 
     <string name="status_transaction_failed">Transactie mislukt: %1$s</string>
 
+    <string name="send_xmrto_timeout">Je hebt te lang gewacht, vriend!</string>
+
     <string name="service_busy">Ik ben nog bezig met de vorige…</string>
 
     <string name="prompt_rename">%1$s hernoemen</string>
@@ -91,9 +138,9 @@
     <string name="label_wallet_receive">Ontvangen</string>
     <string name="label_wallet_send">Geven</string>
 
-    <string name="xmr_unconfirmed_amount">+ %1$s LOKI onbevestigd</string>
+    <string name="xmr_unconfirmed_amount">+ %1$s XMR onbevestigd</string>
 
-    <string name="service_description">Loki Wallet-service</string>
+    <string name="service_description">monerujo-service</string>
 
     <string name="status_synced">Gesynchroniseerd:</string>
     <string name="status_remaining">Blokken te gaan</string>
@@ -105,12 +152,14 @@
 
     <string name="label_copy_viewkey">Alleen-lezen sleutel</string>
     <string name="label_copy_address">Openbaar adres</string>
+    <string name="label_copy_xmrtokey">Sleutel XMR.TO</string>
     <string name="message_copy_viewkey">Alleen-lezen sleutel gekopieerd naar klembord!</string>
+    <string name="message_copy_xmrtokey">Sleutel XMR.TO gekopieerd naar klembord!</string>
     <string name="message_copy_address">Portemonnee-adres gekopieerd naar klembord!</string>
     <string name="message_copy_txid">Transactie-ID gekopieerd naar klembord!</string>
     <string name="message_nocopy">Kopiëren uitgeschakeld voor de veiligheid!</string>
 
-    <string name="message_exchange_failed">Kan wisselkoers niet ophalen!\nGebruik Loki of probeer opnieuw</string>
+    <string name="message_exchange_failed">Kan wisselkoers niet ophalen!\nGebruik XMR/XMR of probeer opnieuw</string>
 
     <string name="generate_title">Portemonnee maken</string>
     <string name="generate_name_hint">Naam portemonnee</string>
@@ -119,7 +168,7 @@
     <string name="generate_fingerprint_warn"><![CDATA[
         strong>Verificatie met vingerafdruk</strong>
         <p>Als je verificatie met vingerafdruk toestaat, kun je het saldo van je portemonnee bekijken en geld ontvangen zonder een wachtwoord in te voeren.</p>
-        <p>Maar voor de veiligheid vereist Loki Wallet wel dat je een wachtwoord invoert om details van de portemonnee te bekijken of geld over te maken.</p>
+        <p>Maar voor de veiligheid vereist monerujo wel dat je een wachtwoord invoert om details van de portemonnee te bekijken of geld over te maken.</p>
         <strong>Beveiligingswaarschuwing</strong>
         <p>Houd er rekening mee dat iedereen die toegang heeft tot je vingerafdruk het saldo van je portemonnee kan bekijken.</p>
         <p>Een kwaadwillige gebruiker kan bijvoorbeeld je portemonnee openen terwijl je slaapt.</p>
@@ -159,24 +208,28 @@
     <string name="generate_check_address">Voer geldig adres in</string>
     <string name="generate_check_mnemonic">Voer je 25 woorden in</string>
 
+    <string name="send_amount_btc_xmr">%1$s (schatting)</string>
+
     <string name="send_paymentid_hint">Betalings-ID (optioneel)</string>
     <string name="send_amount_hint">0,00</string>
     <string name="send_notes_hint">Opmerkingen voor jezelf (optioneel)</string>
     <string name="send_generate_paymentid_hint">Genereren</string>
-    <string name="send_send_label">Geef mijn mooie Loki uit</string>
-    <string name="send_send_timed_label">Geef mijn mooie Loki uit (%1$s)</string>
+    <string name="send_send_label">Geef mijn mooie moneroj uit</string>
+    <string name="send_send_timed_label">Geef mijn mooie moneroj uit (%1$s)</string>
     <string name="send_qr_invalid">Geen QR-code</string>
     <string name="send_qr_address_invalid">Geen geldige QR-code voor betaling</string>
     <string name="send_address_invalid">Geen geldig adres</string>
     <string name="send_title">Verzenden</string>
-    <string name="send_available">Saldo: %1$s LOKI</string>
+    <string name="send_available">Saldo: %1$s XMR</string>
     <string name="send_address_title">Adres</string>
     <string name="send_amount_title">Bedrag</string>
     <string name="send_confirm_title">Bevestigen</string>
     <string name="send_success_title">Klaar</string>
 
     <string name="send_amount_label">Bedrag</string>
+    <string name="send_fee_btc_label">Vergoeding (XMR)</string>
     <string name="send_fee_label">Vergoeding</string>
+    <string name="send_total_btc_label">Totaal (XMR)</string>
     <string name="send_total_label">Totaal</string>
 
     <string name="send_amount">%1$s XMR</string>
@@ -194,9 +247,11 @@
     <string name="tx_id">Transactie-ID</string>
     <string name="tx_key">Transactiesleutel</string>
     <string name="tx_destination">Bestemming</string>
+    <string name="tx_destination_btc">Bestemming\nBTC</string>
     <string name="tx_paymentId">Betalings-ID</string>
     <string name="tx_blockheight">Blok</string>
     <string name="tx_amount">Bedrag</string>
+    <string name="tx_amount_btc">Bedrag\nBTC</string>
     <string name="tx_fee">Vergoeding</string>
     <string name="tx_transfers">Betalingen</string>
     <string name="tx_notes">Opmerkingen</string>
@@ -210,7 +265,7 @@
 
     <string name="receive_amount_hint">Bedrag</string>
     <string name="receive_cannot_open">Kan portemonnee niet openen!</string>
-    <string name="receive_paymentid_invalid">16 of 64 hexadecimale tekens (0–9, a–f)</string>
+    <string name="receive_paymentid_invalid">16 hexadecimale tekens (0–9, a–f)</string>
     <string name="receive_integrated_paymentid_invalid">Moet leeg zijn bij een geïntegreerd adres</string>
 
     <string name="receive_amount_too_big">Max. %1$s</string>
@@ -265,7 +320,7 @@
     <string name="nfc_tag_read_undef">Ik begrijp de Tag niet!</string>
     <string name="nfc_tag_read_what">Ik weet niet wat je wilt!</string>
     <string name="nfc_tag_read_success">Tag is gelezen</string>
-    <string name="nfc_tag_tap">NFC via Sticker Tag beschikbaar!</string>
+    <string name="nfc_tag_tap">NFC beschikbaar!</string>
 
     <string name="receive_desc_hint">Omschrijving (optioneel)</string>
 
@@ -307,13 +362,27 @@
     <string name="label_test">Test</string><!--note: as in "Test a network connection"-->
 
     <string name="backup_success">Backup successful</string>
+
+    <string name="send_address_resolve_bip70">Resolving Payment URI&#8230;</string>
+    <string name="send_address_not_bip70">Could not resolve Payment URI</string>
+    <string name="send_address_bip70">Resolved Payment URI &#x2714;</string>
     <!-- please verify this means "Receiver" or "Recipient" as in "Receiver in the transaction" -->
     <string name="send_address_hint">Ontvanger</string>
+
+    <string name="xmrto_error_001">XMR.TO offline - try again later</string>
+    <string name="xmrto_error_004">BTC amount out of bounds</string>
+    <string name="xmrto_error_010">Invalid or outdated Payment URL</string>
+    <string name="xmrto_error_012">Too many requests</string>
+
     <string name="street_sweep_amount">EVERYTHING!</string> <!-- as in: "everything in the account" = "all the money" -->
 
     <string name="menu_ledger_seed">Convert Ledger Seed</string>
     <string name="prompt_ledger_seed">Ledger Seed Words</string>
     <string name="prompt_ledger_phrase">Ledger Passphrase (optional)</string>
     <string name="bad_ledger_seed">Invalid Ledger Seed!</string>
-    <string name="prompt_ledger_seed_warn">Entering you Ledger Seed here is a major security risk!</string>
+    <string name="prompt_ledger_seed_warn">Entering your Ledger Seed here is a major security risk!</string>
+
+    <string name="label_restoreheight">Herstelpunt</string> <!-- Restore Height -->
+
+    <string name="toast_ledger_start_app">Start Monero App on %1$s</string>
 </resources>

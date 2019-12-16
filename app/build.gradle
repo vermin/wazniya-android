@@ -1,16 +1,15 @@
 apply plugin: 'com.android.application'
-apply from: './gradle_helpers/git-utils.gradle'
 
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId 'network.loki.wallet'
+        applicationId "com.m2049r.xmrwallet"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        ndk.abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+        versionCode 201
+        versionName "1.12.11 'Caerbannog'"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
@@ -46,24 +45,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            versionNameSuffix "-" + gitLatestCommitSha
             applicationIdSuffix ".debug"
         }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     externalNativeBuild {
         cmake {
             path "CMakeLists.txt"
         }
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
     }
 
     splits {

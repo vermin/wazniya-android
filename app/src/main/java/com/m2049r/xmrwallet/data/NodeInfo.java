@@ -22,7 +22,6 @@ import com.burgstaller.okhttp.digest.CachingAuthenticator;
 import com.burgstaller.okhttp.digest.Credentials;
 import com.burgstaller.okhttp.digest.DigestAuthenticator;
 import com.m2049r.levin.scanner.Dispatcher;
-import com.m2049r.xmrwallet.model.NetworkType;
 import com.m2049r.levin.scanner.LevinPeer;
 import com.m2049r.xmrwallet.util.OkHttpHelper;
 
@@ -47,6 +46,9 @@ import okhttp3.ResponseBody;
 import timber.log.Timber;
 
 public class NodeInfo extends Node {
+    final static public int MIN_MAJOR_VERSION = 11;
+    final static public String RPC_VERSION = "2.0";
+
     private long height = 0;
     private long timestamp = 0;
     private int majorVersion = 0;
@@ -140,8 +142,7 @@ public class NodeInfo extends Node {
     }
 
     public boolean isValid() {
-        boolean versionValid = (majorVersion >= 11);
-        return isSuccessful() && versionValid && (responseTime < Double.MAX_VALUE);
+        return isSuccessful() && (majorVersion >= MIN_MAJOR_VERSION) && (responseTime < Double.MAX_VALUE);
     }
 
     static public Comparator<NodeInfo> BestNodeComparator = new Comparator<NodeInfo>() {
@@ -228,10 +229,15 @@ public class NodeInfo extends Node {
                 responseCode = response.code();
                 if (response.isSuccessful()) {
                     ResponseBody respBody = response.body(); // closed through Response object
-                    if ((respBody != null) && (respBody.contentLength() < 1000)) { // sanity check
+                    if ((respBody != null) && (respBody.contentLength() < 2000)) { // sanity check
                         final JSONObject json = new JSONObject(
                                 respBody.string());
+                        String rpcVersion = json.getString("jsonrpc");
+                        if (!RPC_VERSION.equals(rpcVersion))
+                            return false;
                         final JSONObject result = json.getJSONObject("result");
+                        if (!result.has("credits")) // introduced in monero v0.15.0
+                            return false;
                         final JSONObject header = result.getJSONObject("block_header");
                         height = header.getLong("height");
                         timestamp = header.getLong("timestamp");
@@ -247,7 +253,7 @@ public class NodeInfo extends Node {
         return false;
     }
 
-    static final private int[] TEST_PORTS = {22023}; // check only opt-in port
+    static final private int[] TEST_PORTS = {18089}; // check only opt-in port
 
     public boolean findRpcService() {
         // if already have an rpcPort, use that

@@ -45,7 +45,6 @@ import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeApi;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeCallback;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeRate;
-import com.m2049r.xmrwallet.util.AppPreferences;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.widget.Toolbar;
 
@@ -56,8 +55,8 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class WalletFragment extends Fragment implements TransactionInfoAdapter.OnInteractionListener {
-
+public class WalletFragment extends Fragment
+        implements TransactionInfoAdapter.OnInteractionListener {
     private TransactionInfoAdapter adapter;
     private NumberFormat formatter = NumberFormat.getInstance();
 
@@ -71,12 +70,8 @@ public class WalletFragment extends Fragment implements TransactionInfoAdapter.O
     private ProgressBar pbProgress;
     private Button bReceive;
     private Button bSend;
+
     private Spinner sCurrency;
-
-    private final ExchangeApi exchangeApi = Helper.getExchangeApi();
-
-    String balanceCurrency = Helper.BASE_CRYPTO;
-    double balanceRate = 1.0;
 
     private List<String> dismissedTransactions = new ArrayList<>();
 
@@ -167,8 +162,19 @@ public class WalletFragment extends Fragment implements TransactionInfoAdapter.O
 
         recyclerView.addOnItemTouchListener(swipeTouchListener);
 
-        bSend.setOnClickListener(v -> activityCallback.onSendRequest());
-        bReceive.setOnClickListener(v -> activityCallback.onWalletReceive());
+
+        bSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCallback.onSendRequest();
+            }
+        });
+        bReceive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityCallback.onWalletReceive();
+            }
+        });
 
         sCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -213,17 +219,22 @@ public class WalletFragment extends Fragment implements TransactionInfoAdapter.O
 
     void updateBalance() {
         if (isExchanging) return; // wait for exchange to finish - it will fire this itself then.
-        // at this point selection is LOKI in case of error
+        // at this point selection is XMR in case of error
         String displayB;
         double amountA = Helper.getDecimalAmount(unlockedBalance).doubleValue();
-        if (!Helper.BASE_CRYPTO.equals(balanceCurrency)) { // not LOKI
+        if (!Helper.BASE_CRYPTO.equals(balanceCurrency)) { // not XMR
             double amountB = amountA * balanceRate;
             displayB = Helper.getFormattedAmount(amountB, false);
-        } else { // LOKI
+        } else { // XMR
             displayB = Helper.getFormattedAmount(amountA, true);
         }
         showBalance(displayB);
     }
+
+    String balanceCurrency = Helper.BASE_CRYPTO;
+    double balanceRate = 1.0;
+
+    private final ExchangeApi exchangeApi = Helper.getExchangeApi();
 
     void refreshBalance() {
         double unconfirmedXmr = Helper.getDecimalAmount(balance - unlockedBalance).doubleValue();
@@ -241,14 +252,24 @@ public class WalletFragment extends Fragment implements TransactionInfoAdapter.O
                             @Override
                             public void onSuccess(final ExchangeRate exchangeRate) {
                                 if (isAdded())
-                                    new Handler(Looper.getMainLooper()).post(() -> exchange(exchangeRate));
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            exchange(exchangeRate);
+                                        }
+                                    });
                             }
 
                             @Override
                             public void onError(final Exception e) {
                                 Timber.e(e.getLocalizedMessage());
                                 if (isAdded())
-                                    new Handler(Looper.getMainLooper()).post(() -> exchangeFailed());
+                                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            exchangeFailed();
+                                        }
+                                    });
                             }
                         });
             } else {
@@ -283,7 +304,7 @@ public class WalletFragment extends Fragment implements TransactionInfoAdapter.O
     public void exchange(final ExchangeRate exchangeRate) {
         hideExchanging();
         if (!Helper.BASE_CRYPTO.equals(exchangeRate.getBaseCurrency())) {
-            Timber.e("Not LOKI");
+            Timber.e("Not XMR");
             sCurrency.setSelection(0, true);
             balanceCurrency = Helper.BASE_CRYPTO;
             balanceRate = 1.0;

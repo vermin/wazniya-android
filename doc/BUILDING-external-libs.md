@@ -1,24 +1,4 @@
-# Building external libs in Docker
-
-Builds Loki libs for all Android architectures from this [Doy-lee's Repo](https://github.com/Doy-lee/loki/tree/LokiAndroidWallet).
-
-Build image from `external-libs/docker` directory:
-
-```Shell
-docker build -t loki-android-image .
-```
-
-Create container to copy libs:
-```Shell
-docker create --name loki-android loki-android-image
-```
- 
-Launch collecting script from `external-libs` directory:
-```Shell
-./collect.sh loki-android 
-```
-
-# Building external libs manually
+# BUILDING external libs
 
 Based on https://forum.getmonero.org/5/support/87643/building-monero-v0-10-3-1-for-android and the internet.
 
@@ -41,9 +21,9 @@ sudo chown $LOGNAME /opt/android
 ## Install Android NDK
 ```Shell
 cd /opt/android
-wget https://dl.google.com/android/repository/android-ndk-r17b-linux-x86_64.zip
-unzip android-ndk-r17b-linux-x86_64.zip
-ln -s android-ndk-r17b ndk
+wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
+unzip android-ndk-r16b-linux-x86_64.zip
+ln -s android-ndk-r16b ndk
 ndk/build/tools/make_standalone_toolchain.py --api 21 --stl=libc++ --arch arm --install-dir /opt/android/tool/arm
 ndk/build/tools/make_standalone_toolchain.py --api 21 --stl=libc++ --arch arm64 --install-dir /opt/android/tool/arm64
 ndk/build/tools/make_standalone_toolchain.py --api 21 --stl=libc++ --arch x86 --install-dir /opt/android/tool/x86
@@ -100,9 +80,9 @@ ln -sf /opt/android/build/openssl/x86_64/lib/*.so /opt/android/tool/x86_64/sysro
 ## Build Boost
 ```Shell
 cd /opt/android
-wget https://sourceforge.net/projects/boost/files/boost/1.67.0/boost_1_67_0.tar.gz/download -O boost_1_67_0.tar.gz
-tar xfz boost_1_67_0.tar.gz
-cd boost_1_67_0
+wget https://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.tar.gz/download -O boost_1_58_0.tar.gz
+tar xfz boost_1_58_0.tar.gz
+cd boost_1_58_0
 ./bootstrap.sh
 ```
 Comment out ```using ::fgetpos;``` & ```using ::fsetpos;``` in ```cstdio```.
@@ -129,17 +109,19 @@ PATH=/opt/android/tool/x86_64/x86_64-linux-android/bin:/opt/android/tool/x86_64/
 ln -sf ../include /opt/android/build/boost/x86_64
 ```
 
-## And finally: Build Loki
+## And finally: Build Monero
 ```Shell
 cd /opt/android
-git clone -b loki_wallet --recursive https://github.com/crtlib/loki.git
-cd /opt/android/loki
+git clone https://github.com/m2049r/monero.git
+cd monero
+git checkout release-v0.12.3
+
 ./build-all-arch.sh
 ```
 
 # Bringing it all together
 - Copy all .a libraries into the appropriate `external-libs` folders.
-- Copy `/opt/android/loki/src/wallet/api/wallet2_api.h` into `external-libs/monero/include`
+- Copy `/opt/android/monero/src/wallet/api/wallet2_api.h` into `external-libs/monero/include`
 
 If using default locations, this would mean:
 ```Shell

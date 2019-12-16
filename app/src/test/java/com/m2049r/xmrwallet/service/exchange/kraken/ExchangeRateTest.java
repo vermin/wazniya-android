@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-package com.m2049r.xmrwallet.service.exchange.coingecko;
-=======
 package com.m2049r.xmrwallet.service.exchange.kraken;
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
 
-import com.m2049r.xmrwallet.model.Wallet;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeApi;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeCallback;
 import com.m2049r.xmrwallet.service.exchange.api.ExchangeException;
@@ -28,6 +23,7 @@ import com.m2049r.xmrwallet.service.exchange.api.ExchangeRate;
 
 import net.jodah.concurrentunit.Waiter;
 
+import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,11 +73,7 @@ public class ExchangeRateTest {
     public void queryExchangeRate_shouldBeGetMethod()
             throws InterruptedException, TimeoutException {
 
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-        exchangeApi.queryExchangeRate(Wallet.LOKI_SYMBOL, "USD", mockExchangeCallback);
-=======
         exchangeApi.queryExchangeRate("XMR", "USD", mockExchangeCallback);
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
 
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("GET", request.getMethod());
@@ -91,60 +83,20 @@ public class ExchangeRateTest {
     public void queryExchangeRate_shouldHavePairInUrl()
             throws InterruptedException, TimeoutException {
 
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-        exchangeApi.queryExchangeRate(Wallet.LOKI_SYMBOL, "USD", mockExchangeCallback);
-
-        RecordedRequest request = mockWebServer.takeRequest();
-        assertEquals("/price?ids=loki-network&vs_currencies=usd", request.getPath());
-=======
         exchangeApi.queryExchangeRate("XMR", "USD", mockExchangeCallback);
 
         RecordedRequest request = mockWebServer.takeRequest();
         assertEquals("/?pair=XMRUSD", request.getPath());
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
     }
 
     @Test
     public void queryExchangeRate_wasSuccessfulShouldRespondWithRate()
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-            throws TimeoutException {
-        final String base = Wallet.LOKI_SYMBOL;
-        final String quote = "EUR";
-        final double rate = 1.56;
-        MockResponse jsonMockResponse = new MockResponse().setBody(
-                createMockExchangeRateResponse("loki-network", quote, rate));
-        mockWebServer.enqueue(jsonMockResponse);
-
-        exchangeApi.queryExchangeRate(base, quote, new ExchangeCallback() {
-            @Override
-            public void onSuccess(final ExchangeRate exchangeRate) {
-                waiter.assertEquals(exchangeRate.getBaseCurrency(), base);
-                waiter.assertEquals(exchangeRate.getQuoteCurrency(), quote);
-                waiter.assertEquals(exchangeRate.getRate(), rate);
-                waiter.resume();
-            }
-
-            @Override
-            public void onError(final Exception e) {
-                waiter.fail(e);
-                waiter.resume();
-            }
-        });
-        waiter.await();
-    }
-
-    @Test
-    public void queryExchangeRate_wasSuccessfulShouldRespondWithRateUSD()
-            throws TimeoutException {
-        final String base = Wallet.LOKI_SYMBOL;
-=======
             throws InterruptedException, JSONException, TimeoutException {
         final String base = "XMR";
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
         final String quote = "USD";
         final double rate = 100;
         MockResponse jsonMockResponse = new MockResponse().setBody(
-                createMockExchangeRateResponse("loki-network", quote, rate));
+                createMockExchangeRateResponse(base, quote, rate));
         mockWebServer.enqueue(jsonMockResponse);
 
         exchangeApi.queryExchangeRate(base, quote, new ExchangeCallback() {
@@ -169,11 +121,7 @@ public class ExchangeRateTest {
     public void queryExchangeRate_wasNotSuccessfulShouldCallOnError()
             throws InterruptedException, JSONException, TimeoutException {
         mockWebServer.enqueue(new MockResponse().setResponseCode(500));
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-        exchangeApi.queryExchangeRate(Wallet.LOKI_SYMBOL, "USD", new ExchangeCallback() {
-=======
         exchangeApi.queryExchangeRate("XMR", "USD", new ExchangeCallback() {
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
             @Override
             public void onSuccess(final ExchangeRate exchangeRate) {
                 waiter.fail();
@@ -193,20 +141,11 @@ public class ExchangeRateTest {
 
     @Test
     public void queryExchangeRate_unknownAssetShouldCallOnError()
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-            throws TimeoutException {
-        MockResponse jsonMockResponse = new MockResponse().setBody(
-                createMockExchangeRateErrorResponse());
-        mockWebServer.enqueue(jsonMockResponse);
-
-        exchangeApi.queryExchangeRate(Wallet.LOKI_SYMBOL, "ABC", new ExchangeCallback() {
-=======
             throws InterruptedException, JSONException, TimeoutException {
         mockWebServer.enqueue(new MockResponse().
                 setResponseCode(200).
                 setBody("{\"error\":[\"EQuery:Unknown asset pair\"]}"));
         exchangeApi.queryExchangeRate("XMR", "ABC", new ExchangeCallback() {
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
             @Override
             public void onSuccess(final ExchangeRate exchangeRate) {
                 waiter.fail();
@@ -218,11 +157,7 @@ public class ExchangeRateTest {
                 waiter.assertTrue(e instanceof ExchangeException);
                 ExchangeException ex = (ExchangeException) e;
                 waiter.assertTrue(ex.getCode() == 200);
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-                waiter.assertEquals(ex.getErrorMsg(), "No price found");
-=======
                 waiter.assertEquals(ex.getErrorMsg(), "EQuery:Unknown asset pair");
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
                 waiter.resume();
             }
 
@@ -230,25 +165,6 @@ public class ExchangeRateTest {
         waiter.await();
     }
 
-<<<<<<< HEAD:app/src/test/java/com/m2049r/xmrwallet/service/exchange/coingecko/ExchangeRateTest.java
-    private String createMockExchangeRateResponse(final String base, final String quote, final double rate) {
-        /*
-        {
-          "loki-network": {
-            "usd": 0.166536
-          }
-        }
-        */
-        return "{" +
-                    "\"" + base + "\": {" +
-                        "\"" + quote.toLowerCase() + "\":" + rate +
-                    "}" +
-                "}";
-    }
-
-    private String createMockExchangeRateErrorResponse() {
-        return "{}";
-=======
     static public String createMockExchangeRateResponse(final String base, final String quote, final double rate) {
         return "{\n" +
                 "   \"error\":[],\n" +
@@ -266,6 +182,5 @@ public class ExchangeRateTest {
                 "       }\n" +
                 "   }\n" +
                 "}";
->>>>>>> e076c19e3e6c4158c3f3e7b1a954b34c58c25dfa:app/src/test/java/com/m2049r/xmrwallet/service/exchange/kraken/ExchangeRateTest.java
     }
 }

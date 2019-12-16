@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
-    <string name="app_name" translatable="false">Loki Wallet</string>
+    <string name="app_name" translatable="false">monerujo</string>
     <string name="wallet_activity_name">ウォレット</string>
 
-    <string name="menu_about">Loki Walletについて</string>
+    <string name="menu_about">Monerujoについて</string>
     <string name="menu_privacy">プライバシーポリシー</string>
 
     <string name="menu_share">共有</string>
@@ -31,15 +31,58 @@
 
     <string name="label_receive_info_gen_qr_code">タッチしてQRコードを表示</string>
 
+    <string name="info_xmrto_enabled">BTC支払いは有効化されています。詳細はタップしてください。</string>
     <string name="info_ledger_enabled">レッジャーは有効化されています。詳細はタップしてください。</string>
 
-    <string name="info_paymentid_intergrated">ペイメントID組み込み済み</string>
+    <string name="info_xmrto"><![CDATA[
+        <b>あなたが入力したのはビットコインのアドレスです。</b><br/>
+        <i>あなたはXMRを送金し、受け手は XMR.TO のサービスを利用してBTCを受取ります。</i>
+    ]]></string>
+
+    <string name="info_send_xmrto_success_order_label">XMR.TO の注文</string>
+
+    <string name="info_send_xmrto_success_btc">%1$s BTC</string>
+
+    <string name="info_send_xmrto_paid">承認を待っています</string>
+    <string name="info_send_xmrto_unpaid">支払いを待っています</string>
+    <string name="info_send_xmrto_error">XMR.TO のエラー (%1$s)</string>
+    <string name="info_send_xmrto_sent">BTCが送金されました!</string>
+    <string name="info_send_xmrto_query">問い合わせ中 &#8230;</string>
+
+    <string name="info_send_xmrto_parms"><![CDATA[
+        <b>%1$s から %2$s BTC を送金することができます。</b><br/>
+        <i><b>XMR.TO</b> での交換レートは<u>現在</u><b>%3$s BTC</b>です。</i>
+    ]]></string>
+    <string name="info_send_xmrto_zeroconf"><![CDATA[
+        <i><b>%1$s BTC</b> までの数量は <u>即時に</u>送金可能です!</i>
+    ]]></string>
+
+    <string name="send_available_btc">残高: %2$s BTC (%1$s XMR)</string>
+
+    <string name="info_paymentid_integrated">&#x2714; ペイメントID組み込み済み</string>
     <string name="info_prepare_tx">取引を準備しています</string>
 
+    <string name="label_send_progress_xmrto_create">XMR.TO の注文を作成しています</string>
+    <string name="label_send_progress_xmrto_query">XMR.TO の注文を問い合わせています</string>
     <string name="label_send_progress_create_tx">モネロの取引を準備しています</string>
+
+    <string name="label_send_progress_queryparms">XMR.TO のパラメータを問い合わせています</string>
+
+    <string name="label_generic_xmrto_error">XMR.TO のエラー</string>
+    <string name="text_generic_xmrto_error">コード: %1$d</string>
 
     <string name="text_retry">タッチして再試行</string>
     <string name="text_noretry_monero">私達はここで立ち往生のようです!</string>
+    <string name="text_noretry">あーあ、 XMR.TO は現在利用不能のようです!</string>
+
+    <string name="text_send_btc_amount">%1$s BTC = %2$s XMR</string>
+    <string name="text_send_btc_rate">(レート: %1$s BTC/XMR)</string>
+
+    <string name="label_send_btc_xmrto_info">サポートと追跡については xmr.to をご覧ください</string>
+    <string name="label_send_btc_xmrto_key_lb">シークレットキー\nXMR.TO</string>
+    <string name="label_send_btc_xmrto_key">XMR.TO のシークレットキー</string>
+    <string name="label_send_btc_address">支払先の BTC アドレス</string>
+    <string name="label_send_btc_amount">数量</string>
 
     <string name="label_send_txid">取引ID</string>
     <string name="label_send_address">送金先アドレス</string>
@@ -75,6 +118,8 @@
 
     <string name="status_transaction_failed">取引に失敗しました: %1$s</string>
 
+    <string name="send_xmrto_timeout">時間がかかりすぎているようです!</string>
+
     <string name="service_busy">まだ前のウォレットの処理をしています &#8230;</string>
 
     <string name="prompt_rename">%1$s の名称変更</string>
@@ -97,9 +142,9 @@
     <string name="label_wallet_receive">受取り</string>
     <string name="label_wallet_send">送金</string>
 
-    <string name="xmr_unconfirmed_amount">+ %1$s LOKI が未承認</string>
+    <string name="xmr_unconfirmed_amount">+ %1$s XMR が未承認</string>
 
-    <string name="service_description">Loki Wallet のサービス</string>
+    <string name="service_description">monerujo のサービス</string>
 
     <string name="status_synced">同期済み:</string>
     <string name="status_remaining">残りのブロック</string>
@@ -111,12 +156,14 @@
 
     <string name="label_copy_viewkey">表示用キー</string>
     <string name="label_copy_address">公開アドレス</string>
+    <string name="label_copy_xmrtokey">XMR.TO キー</string>
     <string name="message_copy_viewkey">表示用キーがクリップボードにコピーされました!</string>
+    <string name="message_copy_xmrtokey">XMR.TO キーがクリップボードにコピーされました!</string>
     <string name="message_copy_address">ウォレットアドレスがクリップボードにコピーされました!</string>
     <string name="message_copy_txid">取引IDがクリップボードにコピーされました!</string>
     <string name="message_nocopy">セキュリティ上の理由でコピーは無効化されています!</string>
 
-    <string name="message_exchange_failed">取引レートを取得できません!\nLoki を使うかもう一度試してください</string>
+    <string name="message_exchange_failed">取引レートを取得できません!\nXMR/XMR を使うかもう一度試してください</string>
 
     <string name="generate_title">ウォレット作成</string>
     <string name="generate_name_hint">ウォレットの名前</string>
@@ -125,7 +172,7 @@
     <string name="generate_fingerprint_warn"><![CDATA[
         <strong>指紋認証</strong>
         <p>指紋認証を有効化すると、あなたはウォレット残高の閲覧と資産の受取をパスワード無しで行なえます。</p>
-        <p>しかしセキュリティのため、Loki Walletはウォレットの詳細の閲覧と送金にはパスワードを要します。</p>
+        <p>しかしセキュリティのため、monerujoはウォレットの詳細の閲覧と送金にはパスワードを要します。</p>
         <strong>セキュリティ警告</strong>
         <p>そして最後に、あなたの指紋を入手できる人間は誰でもあなたのウォレット残高を覗くことができます。</p>
         <p>例えば、あなたの周りの邪悪な人間が、あなたが寝ている間にウォレットを開くかもしれません。</p>
@@ -166,6 +213,8 @@
     <string name="generate_check_address">有効なアドレスを入力してください</string>
     <string name="generate_check_mnemonic">25 単語のシードを入力してください</string>
 
+    <string name="send_amount_btc_xmr">%1$s (指定)</string>
+
     <string name="send_paymentid_hint">ペイメントID (オプション)</string>
     <string name="send_amount_hint">0.00</string>
     <string name="send_notes_hint">プライベートノート (オプション)</string>
@@ -181,17 +230,19 @@
     <string name="send_address_resolve_openalias">OpenAliasを解決しています&#8230;</string>
     <string name="send_address_no_dnssec">DNSSECのないOpenAliasです - アドレスが偽造されているかもしれません</string>
     <string name="send_title">送金</string>
-    <string name="send_available">残高: %1$s LOKI</string>
+    <string name="send_available">残高: %1$s XMR</string>
     <string name="send_address_title">アドレス</string>
     <string name="send_amount_title">数量</string>
     <string name="send_confirm_title">確認</string>
     <string name="send_success_title">完了</string>
 
     <string name="send_amount_label">数量</string>
+    <string name="send_fee_btc_label">手数料 (XMR)</string>
     <string name="send_fee_label">手数料</string>
+    <string name="send_total_btc_label">合計 (XMR)</string>
     <string name="send_total_label">合計</string>
 
-    <string name="send_amount">%1$s LOKI</string>
+    <string name="send_amount">%1$s XMR</string>
     <string name="send_fee">+%1$s 手数料</string>
 
     <string name="send_create_tx_error_title">取引作成エラー</string>
@@ -206,9 +257,11 @@
     <string name="tx_id">取引ID</string>
     <string name="tx_key">取引キー</string>
     <string name="tx_destination">送金先</string>
+    <string name="tx_destination_btc">送金先\n(BTC)</string>
     <string name="tx_paymentId">ペイメントID</string>
     <string name="tx_blockheight">ブロック</string>
     <string name="tx_amount">数量</string>
+    <string name="tx_amount_btc">数量\n(BTC)</string>
     <string name="tx_fee">手数料</string>
     <string name="tx_transfers">送金</string>
     <string name="tx_notes">メモ</string>
@@ -223,12 +276,12 @@
     <string name="receive_amount_hint">数量</string>
     <string name="receive_desc_hint">説明 (オプション)</string>
     <string name="receive_cannot_open">ウォレットを開けませんでした!</string>
-    <string name="receive_paymentid_invalid">16 または 64 文字の16進数 (0&#8211;9,a&#8211;f)</string>
+    <string name="receive_paymentid_invalid">16 文字の16進数 (0&#8211;9,a&#8211;f)</string>
     <string name="receive_integrated_paymentid_invalid">インテグレーテッドアドレスでは空でなければなりません</string>
 
     <string name="receive_amount_too_big">最大. %1$s</string>
     <string name="receive_amount_negative">最小. 0</string>
-    <string name="receive_amount_nan">LOKI が数字ではありません</string>
+    <string name="receive_amount_nan">XMR が数字ではありません</string>
 
     <string name="details_alert_message">機密データは表示されません\n背後に人がいないことを確認してください!</string>
     <string name="details_alert_yes">私は安全です</string>
@@ -281,7 +334,7 @@
     <string name="nfc_tag_read_undef">タグを理解できません!</string>
     <string name="nfc_tag_read_what">あなたが何をしたいのかわかりません!</string>
     <string name="nfc_tag_read_success">タグ読み込み成功</string>
-    <string name="nfc_tag_tap">NFC via Sticker Tag が利用可能です!</string>
+    <string name="nfc_tag_tap">NFCが利用可能です!</string>
 
     <string name="unknown_amount" translatable="false">\?\?\?</string>
 
@@ -318,13 +371,27 @@
     <string name="label_test">テスト</string><!--note: as in "Test a network connection"-->
 
     <string name="backup_success">バックアップ成功</string>
+
+    <string name="send_address_resolve_bip70">ペイメントIDの名前解決中&#8230;</string>
+    <string name="send_address_not_bip70">ペイメントIDの名前解決できませんでした</string>
+    <string name="send_address_bip70">ペイメントIDの名前解決しました &#x2714;</string>
     <!-- please verify this means "Receiver" or "Recipient" as in "Receiver in the transaction" -->
     <string name="send_address_hint">受け取り手</string>
-    <string name="street_sweep_amount">EVERYTHING!</string> <!-- as in: "everything in the account" = "all the money" -->
 
-    <string name="menu_ledger_seed">Convert Ledger Seed</string>
-    <string name="prompt_ledger_seed">Ledger Seed Words</string>
-    <string name="prompt_ledger_phrase">Ledger Passphrase (optional)</string>
-    <string name="bad_ledger_seed">Invalid Ledger Seed!</string>
-    <string name="prompt_ledger_seed_warn">Entering you Ledger Seed here is a major security risk!</string>
+    <string name="xmrto_error_001">XMR.TOはオフラインです。もう一度お試しください</string>
+    <string name="xmrto_error_004">BTCの金額は範囲外</string>
+    <string name="xmrto_error_010">ペイメントURLは不正古いです</string>
+    <string name="xmrto_error_012">リクエストは多すぎます</string>
+
+    <string name="street_sweep_amount">残高合計！</string> <!-- as in: "everything in the account" = "all the money" -->
+
+    <string name="menu_ledger_seed">Ledgerシードを転換</string>
+    <string name="prompt_ledger_seed">Ledgerのニーモニックシード</string>
+    <string name="prompt_ledger_phrase">Ledgerパスフレーズ （オプショナル）</string>
+    <string name="bad_ledger_seed">Ledgerのニーモニックシードは不正!</string>
+    <string name="prompt_ledger_seed_warn">ここにLedgerシードを入力するのは、大きなセキュリティリスクですよ！</string>
+
+    <string name="label_restoreheight">Restore Height</string>
+
+    <string name="toast_ledger_start_app">Start Monero App on %1$s</string>
 </resources>

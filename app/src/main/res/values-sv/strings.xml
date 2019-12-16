@@ -31,15 +31,50 @@
 
     <string name="label_receive_info_gen_qr_code">Tryck för QR-kod</string>
 
+    <string name="info_xmrto_enabled">BTC-betalning aktiverad, tryck för mer info.</string>
     <string name="info_ledger_enabled">Ledger aktiverat, tryck för mer info.</string>
 
-    <string name="info_paymentid_intergrated">Betalnings-ID integrerat</string>
+    <string name="info_xmrto"><![CDATA[<b>Du har angivit en Bitcoin-adress.</b><br/> <i>Du kommer att skicka XMR och mottagaren får BTC via tjänsten <b>XMR.TO</b>.</i>]]></string>
+
+    <string name="info_send_xmrto_success_order_label">XMR.TO-beställning</string>
+
+    <string name="info_send_xmrto_success_btc">%1$s BTC</string>
+
+    <string name="info_send_xmrto_paid">Väntar på bekräftelse</string>
+    <string name="info_send_xmrto_unpaid">Väntar på betalning</string>
+    <string name="info_send_xmrto_error">XMR.TO-fel (%1$s)</string>
+    <string name="info_send_xmrto_sent">BTC skickades!</string>
+    <string name="info_send_xmrto_query">Frågar …</string>
+
+    <string name="info_send_xmrto_parms"><![CDATA[<b>Du kan skicka %1$s &#8212; %2$s BTC</b>.<br/> <i><b>XMR.TO</b> ger dig <u>just nu</u> en växelkurs på <b>%3$s BTC</b></i>.]]></string>
+    <string name="info_send_xmrto_zeroconf"><![CDATA[<i>Belopp upp till <b>%1$s BTC</b> skickas <u>omedelbart</u>!</i>]]></string>
+
+    <string name="send_available_btc">Saldo: %2$s BTC (%1$s XMR)</string>
+
+    <string name="info_paymentid_integrated">&#x2714; Betalnings-ID integrerat</string>
     <string name="info_prepare_tx">Förbereder din transaktion</string>
 
-    <string name="label_send_progress_create_tx">Förbereder Loki-transaktion</string>
+    <string name="label_send_progress_xmrto_create">Skapar XMR.TO-beställning</string>
+    <string name="label_send_progress_xmrto_query">Frågar XMR.TO-beställningen</string>
+    <string name="label_send_progress_create_tx">Förbereder Monero-transaktion</string>
+
+    <string name="label_send_progress_queryparms">Frågar xmr.to-parametrar</string>
+
+    <string name="label_generic_xmrto_error">XMR.TO-FEL</string>
+    <string name="text_generic_xmrto_error">Kod: %1$d</string>
 
     <string name="text_retry">Tryck för att försöka igen</string>
     <string name="text_noretry_monero">Nu har vi kört fast!</string>
+    <string name="text_noretry">Åh nej, XMR.TO verkar inte vara tillgänglig just nu!</string>
+
+    <string name="text_send_btc_amount">%1$s BTC = %2$s XMR</string>
+    <string name="text_send_btc_rate">(Kurs: %1$s BTC/XMR)</string>
+
+    <string name="label_send_btc_xmrto_info">Besök xmr.to för support &amp; spårning</string>
+    <string name="label_send_btc_xmrto_key_lb">Hemlig nyckel\nXMR.TO</string>
+    <string name="label_send_btc_xmrto_key">XMR.TO hemlig nyckel</string>
+    <string name="label_send_btc_address">Måladress för BTC</string>
+    <string name="label_send_btc_amount">Belopp</string>
 
     <string name="label_send_txid">Transaktions-ID</string>
     <string name="label_send_address">Måladress</string>
@@ -73,6 +108,8 @@
 
     <string name="status_transaction_failed">Transaktionen misslyckades: %1$s</string>
 
+    <string name="send_xmrto_timeout">Du väntade för länge!</string>
+
     <string name="service_busy">Jag är fortfarande upptagen med din förra plånbok …</string>
 
     <string name="prompt_rename">Byt namn %1$s</string>
@@ -93,9 +130,9 @@
     <string name="label_wallet_receive">Ta emot</string>
     <string name="label_wallet_send">Ge</string>
 
-    <string name="xmr_unconfirmed_amount">+ %1$s LOKI obekräftade</string>
+    <string name="xmr_unconfirmed_amount">+ %1$s XMR obekräftade</string>
 
-    <string name="service_description">Loki Wallet-tjänsten</string>
+    <string name="service_description">monerujo-tjänsten</string>
 
     <string name="status_synced">Synkade:</string>
     <string name="status_remaining">Återstående block</string>
@@ -107,18 +144,20 @@
 
     <string name="label_copy_viewkey">Granskningsnyckel</string>
     <string name="label_copy_address">Publik adress</string>
+    <string name="label_copy_xmrtokey">XMR.TO-nyckel</string>
     <string name="message_copy_viewkey">Granskningsnyckel kopierades till urklipp!</string>
+    <string name="message_copy_xmrtokey">XMR.TO-nyckel kopierades till urklipp!</string>
     <string name="message_copy_address">Plånboksadress kopierades till urklipp!</string>
     <string name="message_copy_txid">Transaktions-ID kopierades till urklipp!</string>
     <string name="message_nocopy">Kopiering är inaktiverad av säkerhetskäl!</string>
 
-    <string name="message_exchange_failed">Det gick inte att hämta växelkurs!\nAnvänd Loki eller försök igen</string>
+    <string name="message_exchange_failed">Det gick inte att hämta växelkurs!\nAnvänd XMR/XMR eller försök igen</string>
 
     <string name="generate_title">Skapa plånbok</string>
     <string name="generate_name_hint">Plånbokens namn</string>
     <string name="generate_password_hint">Plånbokens lösenfras</string>
     <string name="generate_fingerprint_hint">Tillåt öppning av plånboken med fingeravtryck</string>
-    <string name="generate_fingerprint_warn"><![CDATA[<strong>Autentisering med fingeravtryck</strong> <p>När fingeravtrycksautentisering är aktiverad kan du se plånbokens saldo och ta emot pengar utan att ange lösenord.</p> <p>Men för ytterligare säkerhet kräver Loki Wallet ändå att du anger lösenord för att granska information om plånboken eller skicka pengar.</p> <strong>Säkerhetsvarning</strong> <p>Slutligen vill Loki Wallet påminna dig att vem som helst som kan komma åt ditt fingeravtryck kan se saldot i din plånbok.</p> <p>En elak användare i din närhet kan till exempel öppna din plånbok när du sover.</p> <strong>Är det säkert att du vill aktivera denna funktion?</strong>]]></string>
+    <string name="generate_fingerprint_warn"><![CDATA[<strong>Autentisering med fingeravtryck</strong> <p>När fingeravtrycksautentisering är aktiverad kan du se plånbokens saldo och ta emot pengar utan att ange lösenord.</p> <p>Men för ytterligare säkerhet kräver monerujo ändå att du anger lösenord för att granska information om plånboken eller skicka pengar.</p> <strong>Säkerhetsvarning</strong> <p>Slutligen vill monerujo påminna dig att vem som helst som kan komma åt ditt fingeravtryck kan se saldot i din plånbok.</p> <p>En elak användare i din närhet kan till exempel öppna din plånbok när du sover.</p> <strong>Är det säkert att du vill aktivera denna funktion?</strong>]]></string>
     <string name="generate_bad_passwordB">Lösenfraserna matchar inte</string>
     <string name="generate_empty_passwordB">Lösenfrasen får inte vara tom</string>
     <string name="generate_buttonGenerate">Skapa min plånbok nu då!</string>
@@ -153,12 +192,14 @@
     <string name="generate_check_address">Ange en giltig adress</string>
     <string name="generate_check_mnemonic">Ange ditt startvärde på 25 ord</string>
 
+    <string name="send_amount_btc_xmr">%1$s (ungefärlig)</string>
+
     <string name="send_paymentid_hint">Betalnings-ID (valfritt)</string>
     <string name="send_amount_hint">0,00</string>
     <string name="send_notes_hint">Privat anteckning (valfri)</string>
     <string name="send_generate_paymentid_hint">Skapa</string>
-    <string name="send_send_label">Spendera mina Loki</string>
-    <string name="send_send_timed_label">Spendera mina Loki (%1$s)</string>
+    <string name="send_send_label">Spendera mina Moneroj</string>
+    <string name="send_send_timed_label">Spendera mina Moneroj (%1$s)</string>
     <string name="send_qr_invalid">Inte en QR-kod</string>
     <string name="send_qr_address_invalid">Inte en giltig QR-kod för betalning</string>
     <string name="send_address_invalid">Inte en giltig adress</string>
@@ -170,7 +211,9 @@
     <string name="send_success_title">Färdig</string>
 
     <string name="send_amount_label">Belopp</string>
+    <string name="send_fee_btc_label">Avgift (XMR)</string>
     <string name="send_fee_label">Avgift</string>
+    <string name="send_total_btc_label">Summa (XMR)</string>
     <string name="send_total_label">Summa</string>
 
     <string name="send_amount">%1$s XMR</string>
@@ -188,9 +231,11 @@
     <string name="tx_id">TX-ID</string>
     <string name="tx_key">TX-nyckel</string>
     <string name="tx_destination">Mål</string>
+    <string name="tx_destination_btc">Mål\n(BTC)</string>
     <string name="tx_paymentId">Betalnings-ID</string>
     <string name="tx_blockheight">Block</string>
     <string name="tx_amount">Belopp</string>
+    <string name="tx_amount_btc">Belopp\n(BTC)</string>
     <string name="tx_fee">Avgift</string>
     <string name="tx_transfers">Överföringar</string>
     <string name="tx_notes">Anteckningar</string>
@@ -204,12 +249,12 @@
 
     <string name="receive_amount_hint">Belopp</string>
     <string name="receive_cannot_open">Det gick inte att öppna plånboken!</string>
-    <string name="receive_paymentid_invalid">16 eller 64 hexadecimala tecken (0–9, a–f)</string>
+    <string name="receive_paymentid_invalid">16 hexadecimala tecken (0–9, a–f)</string>
     <string name="receive_integrated_paymentid_invalid">Måste vara tomt med en integrerad adress</string>
 
     <string name="receive_amount_too_big">Max. %1$s</string>
     <string name="receive_amount_negative">Min. 0</string>
-    <string name="receive_amount_nan">LOKI är inte ett tal</string>
+    <string name="receive_amount_nan">XMR är inte ett tal</string>
 
     <string name="details_alert_message">Nu kommer känsliga data att visas.\nTitta över axeln!</string>
     <string name="details_alert_yes">Det är OK</string>
@@ -262,7 +307,7 @@
     <string name="nfc_tag_read_undef">Jag förstår inte taggen!</string>
     <string name="nfc_tag_read_what">Jag vet inte vad du vill!</string>
     <string name="nfc_tag_read_success">Lyckades läsa tagg</string>
-    <string name="nfc_tag_tap">NFC via Sticker Tag tillgängligt!</string>
+    <string name="nfc_tag_tap">NFC tillgängligt!</string>
 
     <string name="receive_desc_hint">Beskrivning (valfri)</string>
 
@@ -302,13 +347,27 @@
     <string name="node_scanning">Scanning network&#8230;</string>
     <string name="node_nobookmark">Automatically bookmarked best %1$d nodes</string>
     <string name="label_test">Test</string><!--note: as in "Test a network connection"-->
+
+    <string name="send_address_resolve_bip70">Resolving Payment URI&#8230;</string>
+    <string name="send_address_not_bip70">Could not resolve Payment URI</string>
+    <string name="send_address_bip70">Resolved Payment URI &#x2714;</string>
     <!-- please verify this means "Receiver" or "Recipient" as in "Receiver in the transaction" -->
     <string name="send_address_hint">Mottagaren</string>
+
+    <string name="xmrto_error_001">XMR.TO offline - try again later</string>
+    <string name="xmrto_error_004">BTC amount out of bounds</string>
+    <string name="xmrto_error_010">Invalid or outdated Payment URL</string>
+    <string name="xmrto_error_012">Too many requests</string>
+
     <string name="street_sweep_amount">EVERYTHING!</string> <!-- as in: "everything in the account" = "all the money" -->
 
     <string name="menu_ledger_seed">Convert Ledger Seed</string>
     <string name="prompt_ledger_seed">Ledger Seed Words</string>
     <string name="prompt_ledger_phrase">Ledger Passphrase (optional)</string>
     <string name="bad_ledger_seed">Invalid Ledger Seed!</string>
-    <string name="prompt_ledger_seed_warn">Entering you Ledger Seed here is a major security risk!</string>
+    <string name="prompt_ledger_seed_warn">Entering your Ledger Seed here is a major security risk!</string>
+
+    <string name="label_restoreheight">Återställningshöjd</string> <!-- Restore Height -->
+
+    <string name="toast_ledger_start_app">Start Monero App on %1$s</string>
 </resources>

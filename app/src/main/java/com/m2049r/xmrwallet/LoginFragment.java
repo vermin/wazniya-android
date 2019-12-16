@@ -42,7 +42,6 @@ import com.m2049r.xmrwallet.data.NodeInfo;
 import com.m2049r.xmrwallet.layout.NodeInfoAdapter;
 import com.m2049r.xmrwallet.layout.WalletInfoAdapter;
 import com.m2049r.xmrwallet.model.WalletManager;
-import com.m2049r.xmrwallet.util.AppPreferences;
 import com.m2049r.xmrwallet.util.Helper;
 import com.m2049r.xmrwallet.util.KeyStoreHelper;
 import com.m2049r.xmrwallet.util.Notice;
@@ -51,7 +50,6 @@ import com.m2049r.xmrwallet.widget.Toolbar;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -265,7 +263,8 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
     public void loadList() {
         Timber.d("loadList()");
         WalletManager mgr = WalletManager.getInstance();
-        List<WalletManager.WalletInfo> walletInfos = mgr.findWallets(activityCallback.getStorageRoot());
+        List<WalletManager.WalletInfo> walletInfos =
+                mgr.findWallets(activityCallback.getStorageRoot());
         walletList.clear();
         walletList.addAll(walletInfos);
         filterList();
@@ -276,7 +275,7 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         if (displayedList.isEmpty()) {
             fab.startAnimation(fab_pulse);
             if (ivGunther.getDrawable() == null) {
-                ivGunther.setImageResource(R.drawable.lunther_big);
+                ivGunther.setImageResource(R.drawable.gunther_desaturated);
             }
         } else {
             fab.clearAnimation();
@@ -286,16 +285,15 @@ public class LoginFragment extends Fragment implements WalletInfoAdapter.OnInter
         }
 
         // remove information of non-existent wallet
-        Set<String> removedWallets = AppPreferences.getWallets(getContext());
-        Set<String> availableWallets = new HashSet<>(walletList.size());
+        Set<String> removedWallets = getActivity()
+                .getSharedPreferences(KeyStoreHelper.SecurityConstants.WALLET_PASS_PREFS_NAME, Context.MODE_PRIVATE)
+                .getAll().keySet();
         for (WalletManager.WalletInfo s : walletList) {
-            availableWallets.add(s.name);
             removedWallets.remove(s.name);
         }
         for (String name : removedWallets) {
             KeyStoreHelper.removeWalletUserPass(getActivity(), name);
         }
-        AppPreferences.setWallets(getContext(), availableWallets);
     }
 
     private void showInfo(@NonNull String name) {

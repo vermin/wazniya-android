@@ -67,7 +67,7 @@
             android:name=".service.WalletService"
             android:description="@string/service_description"
             android:exported="false"
-            android:label="Loki Wallet Service" />
+            android:label="Monero Wallet Service" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
